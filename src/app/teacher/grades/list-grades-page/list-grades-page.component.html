@@ -1,0 +1,28 @@
+<div *ngIf="isLoaded; else loadingBlock">
+  <table>
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Date</th>
+      <th>Value</th>
+      <th>Student</th>
+      <th>Subject</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr
+      *ngFor="let grade of grades; let ind = index"
+    >
+      <td>{{ind + 1}}</td>
+      <td>{{grade.date | date:'short'}}</td>
+      <td>{{grade.value}}</td>
+      <td>{{grade.student.surname}} {{grade.student.name}}</td>
+      <td>{{grade.subject.name}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loadingBlock>
+  <p class="text-center">Loading...</p>
+</ng-template>

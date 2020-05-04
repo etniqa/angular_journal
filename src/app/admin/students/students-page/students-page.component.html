@@ -1,0 +1,32 @@
+<div class="form-control">
+  <input type="text" placeholder="surname..." [(ngModel)]="strForSearchStudentSurname">
+  <!--  group have to be selectControl-->
+  <input type="text" placeholder="group..." [(ngModel)]="strForSearchStudentGroup">
+</div>
+
+<table *ngIf="isLoaded; else loadingBlock">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Surname</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Group</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody
+    *ngFor="let student of students | searchBySurname:strForSearchStudentSurname; let ind = index"
+  >
+  <app-student
+    [student]="student"
+    [ind]="ind + 1"
+    (deleteStudent)="deleteStudent(student)"
+    [isShowDeleteButton]="true"
+  ></app-student>
+  </tbody>
+</table>
+
+<ng-template #loadingBlock>
+  <p class="text-center">Loading...</p>
+</ng-template>

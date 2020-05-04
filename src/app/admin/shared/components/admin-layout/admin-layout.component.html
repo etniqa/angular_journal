@@ -1,0 +1,20 @@
+<nav class="navbar bg-primary">
+  <h1>
+    <a [routerLink]="['my_info']">Logoal <i>admin</i></a>
+  </h1>
+
+  <ul>
+<!--    *ngIf="auth.isAuthenticated()">-->
+    <li routerLinkActive="active"><a [routerLink]="['/admin', 'my_info']">My info</a></li>
+    <li routerLinkActive="active"><a [routerLink]="['/admin', 'students']">Students</a></li>
+    <li routerLinkActive="active"><a [routerLink]="['/admin', 'teachers']">Teachers</a></li>
+    <li routerLinkActive="active"><a [routerLink]="['/admin', 'subjects']">Subjects</a></li>
+    <li routerLinkActive="active"><a [routerLink]="['/admin', 'groups']">Groups</a></li>
+    <li routerLinkActive="active"><a [routerLink]="['/admin', 'grades']">Grades</a></li>
+    <li routerLinkActive="active"><a [routerLink]="['/login']" (click)="logout($event)">Logout</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

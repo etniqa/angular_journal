@@ -1,0 +1,32 @@
+<div class="form-control">
+  <input type="text" placeholder="subject..." [(ngModel)]="strForSearchGradeBySubject">
+  <input type="text" placeholder="surname..." [(ngModel)]="strForSearchGradeByTeacher">
+</div>
+
+<table *ngIf="isLoaded; else loadingBlock">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Date</th>
+    <th>Grade</th>
+    <th>Subject</th>
+    <th>Teacher</th>
+  </tr>
+  </thead>
+  <tbody
+    *ngFor="let grade of grades | searchGradeBySubjectAndTeacher:strForSearchGradeBySubject:strForSearchGradeByTeacher;
+    let ind = index"
+  >
+    <tr>
+      <td>{{ind + 1}}</td>
+      <td>{{grade.date | date:'short'}}</td>
+      <td>{{grade.value}}</td>
+      <td>{{grade.subject.name}}</td>
+      <td>{{grade.teacher.surname}} {{grade.teacher.name}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #loadingBlock>
+  <p class="text-center">Loading...</p>
+</ng-template>

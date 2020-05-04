@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="info">
+<!--    newTeacher info-->
+    <h2>{{newSubject.teacherWhoPropose.surname}} {{newSubject.teacherWhoPropose.name}}</h2>
+    <h3>{{newSubject.teacherWhoPropose.email}}</h3>
+    <br>
+    <h2>{{newSubject.subject.name}}</h2>
+  </div>
+  <div class="actions">
+    <mat-button-toggle-group #group="matButtonToggleGroup" (change)="emitSmth($event)">
+      <mat-button-toggle class="apply-button" value="apply">
+        apply
+      </mat-button-toggle>
+      <mat-button-toggle class="reject-button" value="reject" aria-label="Text align center">
+        reject
+      </mat-button-toggle>
+      <mat-button-toggle class="none-button" value="none" aria-label="Text align right">
+        none
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>

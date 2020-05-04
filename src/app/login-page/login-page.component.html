@@ -1,0 +1,47 @@
+<form
+  *ngIf="this.isLoaded; else loadingBlock"
+  class="card"
+  [formGroup]="form"
+  (ngSubmit)="signInFromForm()"
+>
+  <div class="alert alert-danger" *ngIf="this.errorFromServer">
+    {{this.errorFromServer}}
+  </div>
+
+  <h2>Sign in</h2>
+  <div class="form-control">
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email">
+    <div class="validation" *ngIf="this.form.get('email').invalid && this.form.get('email').touched">
+      <small *ngIf="this.form.get('email').errors.required">You have to fill this field</small>
+      <small *ngIf="this.form.get('email').errors.email">You have to fill in right way your email</small>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label for="password">Password:</label>
+    <input id="password" type="password" formControlName="password">
+    <div class="validation" *ngIf="this.form.get('password').invalid && this.form.get('password').touched">
+      <small *ngIf="this.form.get('password').errors.required">You have to fill this field</small>
+      <small *ngIf="this.form.get('password').errors.minlength">
+        You have to enter {{this.form.get('password').errors.minlength.requiredLength - this.form.get('password').errors.minlength.actualLength}} symbols more
+      </small>
+    </div>
+  </div>
+  <button
+    class="btn btn-primary"
+    type="submit"
+    [disabled]="form.invalid"
+  >Sign in</button>
+</form>
+
+<a class="btn-primary" (click)="signInAsAdmin()">admin</a>
+<br>
+<a class="btn-primary" (click)="signInAsStudent()">student</a>
+<br>
+<a class="btn-primary" (click)="signInAsTeacher()">teacher</a>
+
+
+<ng-template #loadingBlock>
+  <p>Loading...</p>
+</ng-template>

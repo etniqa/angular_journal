@@ -1,0 +1,51 @@
+<form
+  class="card"
+  [formGroup]="form"
+  (ngSubmit)="create()"
+>
+  <div class="form-control">
+    <label for="groupName">Group name: </label>
+    <input id="groupName" type="text" formControlName="groupName">
+    <div class="validation" *ngIf="this.form.get('groupName').invalid && this.form.get('groupName').touched">
+      <small *ngIf="this.form.get('groupName').errors.required">You have to fill this field</small>
+    </div>
+  </div>
+  <button
+    class="btn btn-primary"
+    type="submit"
+    [disabled]="form.invalid"
+  >
+    Create
+  </button>
+</form>
+
+<div *ngIf="isLoaded; else loadingBlock">
+  <input type="text" placeholder="surname..." [(ngModel)]="strForSearchStudentSurname">
+  <i class="text-center">Just click to choose</i>
+  <table id="table-with-students" *ngIf="isLoaded; else loadingBlock">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Surname</th>
+      <th>Name</th>
+      <th>Email</th>
+    </tr>
+    </thead>
+    <tbody
+      *ngFor="let student of studentsWithoutGroup | searchBySurnameExtended:strForSearchStudentSurname;
+    let ind = index"
+      (click)="student.isChosen = !student.isChosen;"
+      [ngClass]="{'chosen': student.isChosen}"
+    >
+    <app-student
+      [student]="student"
+      [ind]="ind + 1"
+      [isShowDeleteButton]="false"
+    ></app-student>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loadingBlock>
+  <p class="text-center">Loading...</p>
+</ng-template>

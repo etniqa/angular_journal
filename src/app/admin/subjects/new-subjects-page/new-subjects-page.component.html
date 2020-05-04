@@ -1,0 +1,17 @@
+<div *ngIf="isLoaded; else loadingBlock">
+  <div class="container"
+       *ngFor="let subject of newSubjects">
+    <app-new-subject
+      [newSubject]="subject"
+      (onChange)="changeStatusForNewStudent($event, subject)"
+    >
+    </app-new-subject>
+
+  </div>
+  <button class="btn btn-success save-all-btn" (click)="saveAllClick()">
+    <h3>Save all</h3>
+  </button>
+</div>
+<ng-template #loadingBlock>
+  <p class="text-center">Loading...</p>
+</ng-template>

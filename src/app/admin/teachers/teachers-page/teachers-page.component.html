@@ -1,0 +1,31 @@
+<div *ngIf="isLoaded; else loadingBlock">
+  <div class="form-control">
+    <input type="text" placeholder="surname..." [(ngModel)]="strForSearchTeacherSurname">
+  </div>
+
+  <table *ngIf="isLoaded; else loadingBlock">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Surname</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody
+      *ngFor="let teacher of teachers | searchBySurnameTeacher:strForSearchTeacherSurname;
+    let ind = index"
+    >
+    <app-teacher
+      [teacher]="teacher"
+      [ind]="ind + 1"
+      (deleteTeacher)="deleteTeacher(teacher)"
+    ></app-teacher>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loadingBlock>
+  <p class="text-center">Loading...</p>
+</ng-template>

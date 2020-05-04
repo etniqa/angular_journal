@@ -1,0 +1,8 @@
+<tr appWithoutWrappingTag>
+  <td>{{ind}}</td>
+  <td>{{student.surname}}</td>
+  <td>{{student.name}}</td>
+  <td>{{student.email}}</td>
+  <td>{{student.group?.name}}</td>
+  <td *ngIf="isShowDeleteButton"><button class="btn btn-danger" (click)="deleteStudent.emit()">Delete</button></td>
+</tr>

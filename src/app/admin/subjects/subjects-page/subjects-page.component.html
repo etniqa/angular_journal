@@ -1,0 +1,28 @@
+<div *ngIf="isLoaded; else loadingBlock">
+  <div class="form-control">
+    <input type="text" placeholder="name..." [(ngModel)]="strForSearchGroupName">
+    <!--  group have to be selectControl-->
+  </div>
+  <table *ngIf="isLoaded; else loadingBlock">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody
+      *ngFor="let subject of subjects | searchByNameSubject:strForSearchGroupName; let ind = index"
+    >
+    <app-subject
+      [subject]="subject"
+      [ind]="ind + 1"
+      (deleteSubject)="deleteSubject(subject)"
+    ></app-subject>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loadingBlock>
+  <p class="text-center">Loading...</p>
+</ng-template>

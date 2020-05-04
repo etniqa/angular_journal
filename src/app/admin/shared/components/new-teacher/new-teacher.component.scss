@@ -1,0 +1,32 @@
+.actions {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-top: auto;
+}
+.card {
+  display: flex;
+}
+
+mat-button-toggle-group {
+  flex-direction: column;
+  width: 150px;
+}
+
+mat-button-toggle {
+  &.mat-button-toggle-checked {
+    &.apply-button {
+      background: #188016;
+      opacity: 0.9;
+    }
+    &.reject-button {
+      background: #ff002a;
+      opacity: 0.9;
+    }
+    &.none-button {
+      background: grey;
+      opacity: 0.9;
+    }
+  }
+}
+

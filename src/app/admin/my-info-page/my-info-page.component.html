@@ -1,0 +1,66 @@
+<div *ngIf="isLoaded; else loadingBlock">
+
+  <form
+    class="card"
+    [formGroup]="form"
+    (ngSubmit)="editAdmin()"
+  >
+    <!--  <div class="alert alert-info" *ngIf="this.messageFromGuard">{{this.messageFromGuard}}</div>-->
+
+    <!--  <div class="alert alert-danger" *ngIf="this.auth.error$ | async as error">-->
+    <!--    {{error}}-->
+    <!--  </div>-->
+
+    <h2>You can edit!</h2>
+    <div class="form-control">
+      <label for="surname">Surname:</label>
+      <input id="surname" type="text" formControlName="surname">
+      <div class="validation" *ngIf="this.form.get('surname').invalid && this.form.get('surname').touched">
+        <small *ngIf="this.form.get('surname').errors.required">You have to fill this field</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="name">Name:</label>
+      <input id="name" type="text" formControlName="name">
+      <div class="validation" *ngIf="this.form.get('name').invalid && this.form.get('name').touched">
+        <small *ngIf="this.form.get('name').errors.required">You have to fill this field</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email">
+      <div class="validation" *ngIf="this.form.get('email').invalid && this.form.get('email').touched">
+        <small *ngIf="this.form.get('email').errors.required">You have to fill this field</small>
+        <small *ngIf="this.form.get('email').errors.email">You have to fill in right way your email</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="password">Password:</label>
+      <input id="password" type="text" formControlName="password">
+      <div class="validation" *ngIf="this.form.get('password').invalid && this.form.get('password').touched">
+        <small *ngIf="this.form.get('password').errors.required">You have to fill this field</small>
+        <small *ngIf="this.form.get('password').errors.minlength">
+          You have to
+          enter {{this.form.get('password').errors.minlength.requiredLength - this.form.get('password').errors.minlength.actualLength}}
+          symbols more
+        </small>
+      </div>
+    </div>
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="form.invalid || form.pristine"
+    >Edit
+    </button>
+  </form>
+</div>
+
+
+<ng-template #loadingBlock>
+  <p class="text-center">Loading...</p>
+</ng-template>
+

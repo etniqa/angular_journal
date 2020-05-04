@@ -1,0 +1,66 @@
+<div *ngIf="isLoaded; else loadingBlock">
+  <h3 class="text-dark">
+    <p>Student: {{chosenStudent?.surname}} {{chosenStudent?.name}}</p>
+    <p>Subject: {{chosenSubject?.name}}</p>
+    <p>Grade: {{this.form.get('grade')?.value}}</p>
+  </h3>
+
+  <form
+    class="card"
+    [formGroup]="form"
+    (ngSubmit)="addNewGrade()"
+  >
+    <div class="form-control left-content">
+      <select matNativeControl required formControlName="grade">
+        <option *ngFor="let grade of grades"
+                [value]="grade.valueOf()">
+          {{grade.valueOf()}}
+        </option>
+      </select>
+
+      <select matNativeControl required formControlName="subject" (change)="selectSubject($event.target.value)">
+        <option *ngFor="let subject of subjects"
+                [value]="subject.id"
+        >
+          {{subject.name}}
+        </option>
+      </select>
+
+    </div>
+    <div class="right-content">
+      <i class="text-center">Just click to choose</i>
+      <table>
+        <thead>
+        <tr>
+          <th>Surname</th>
+          <th>Name</th>
+          <th>Group</th>
+          <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+          *ngFor="let student of allStudents;"
+          (click)="clickedOnThisStudent({studentChoosing : student})"
+          [ngClass]="{'chosen': student.isChosen}"
+        >
+          <td>{{student.surname}}</td>
+          <td>{{student.name}}</td>
+          <td>{{student.group?.name}} </td>
+          <td>{{student.email}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >Add chosenGrade
+    </button>
+  </form>
+</div>
+
+<ng-template #loadingBlock>
+  <p class="text-center">Loading...</p>
+</ng-template>

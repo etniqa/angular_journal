@@ -1,0 +1,16 @@
+<nav class="navbar bg-primary">
+  <h1>
+    <a [routerLink]="['my_info']">Logoal <i>teacher</i></a>
+  </h1>
+
+  <ul>
+    <li routerLinkActive="active"><a [routerLink]="['/teacher', 'my_info']">My info</a></li>
+    <li routerLinkActive="active"><a [routerLink]="['/teacher', 'subjects']">Subjects</a></li>
+    <li routerLinkActive="active"><a [routerLink]="['/teacher', 'grades']">Grades</a></li>
+    <li routerLinkActive="active"><a (click)="logout()">Logout</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

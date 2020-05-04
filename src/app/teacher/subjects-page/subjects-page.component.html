@@ -1,0 +1,47 @@
+<div *ngIf="isLoadedSubjectsCanApply; else loadingBlock">
+  <form
+    class="card"
+    [formGroup]="form"
+    (ngSubmit)="applyToNewSubject()"
+  >
+    <!--    SELECT-->
+    <h4 class="text-center">Apply new subject</h4>
+    <label>Subject</label>
+    <div *ngIf="subjectsCanApply; else youCanConductAnyLessonBlock">
+      <select matNativeControl required formControlName="subjectCanApply">
+        <option *ngFor="let subjectCanApply of subjectsCanApply"
+                [value]="getJsonOfSubject(subjectCanApply)">{{subjectCanApply.name}}</option>
+      </select>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >Apply
+      </button>
+    </div>
+  </form>
+</div>
+
+<h4 class="text-center">My subjects</h4>
+<table *ngIf="isLoadedOwnSubjects; else loadingBlock">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let ownSubject of ownSubjects; let ind = index">
+  <tr>
+    <td>{{ind + 1}}</td>
+    <td>{{ownSubject.name}}</td>
+  </tr>
+  </tbody>
+</table>
+
+
+<ng-template #loadingBlock>
+  <p class="text-center">Loading...</p>
+</ng-template>
+<ng-template #youCanConductAnyLessonBlock>
+  <p class="text-center">You can conduct any lesson</p>
+</ng-template>
