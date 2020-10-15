@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {
-  CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
@@ -8,7 +7,7 @@ import {
   CanActivateChild
 } from '@angular/router';
 import {Observable} from 'rxjs';
-import {AuthService} from "../../shared/services/auth.service";
+import {AuthService} from '../../shared/services/auth.service';
 
 @Injectable()
 export class StudentGuard implements CanActivateChild {
@@ -17,8 +16,10 @@ export class StudentGuard implements CanActivateChild {
   }
 
 
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+    Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.authService.typeOfUser === 'student') {
+
       return true;
     } else {
       console.log('reject');
@@ -27,6 +28,8 @@ export class StudentGuard implements CanActivateChild {
           isFakeAccess: true
         }
       });
+
       return false;
-    }  }
+    }
+  }
 }

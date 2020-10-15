@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../shared/services/auth.service";
 import {Admin, User} from "../shared/interfaces";
+import {first, take} from "rxjs/operators";
+import {Observable, of, range, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-login-page',
@@ -32,9 +34,11 @@ export class LoginPageComponent implements OnInit {
 
   private signIn(user: User) {
     this.isLoaded = false;
-    this.authService.login(user).subscribe(
-      typeOfUser => {
-        switch (typeOfUser) {
+    this.authService.login(user)
+      .pipe(take(1))
+      .subscribe(typeOfUser => {
+          // subscription.unsubscribe();
+          switch (typeOfUser) {
           case 'admin': {
             this.router.navigate(['admin']);
             break;
@@ -59,8 +63,23 @@ export class LoginPageComponent implements OnInit {
         if (error === 'wrong password') {
           this.form.get('email').setValue(oldEmail);
         }
+
         this.isLoaded = true;
       });
+
+/*    new Observable((subscriber) => {
+      for (let i = 0; i < 10; i++) {
+        console.log("in observable", i);
+        subscriber.next(i);
+        return;
+      }
+      for (let i = 0; i < 10; i++) {
+        console.log("in observable2", i);
+        subscriber.next(i);
+      }
+    }).pipe(first()).subscribe(resp => {
+      console.log("in subscriber", resp);
+    });*/
   }
 
   signInAsAdmin() {

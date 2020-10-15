@@ -3,7 +3,7 @@
        *ngFor="let newTeacher of newTeachers">
     <app-new-teacher
       [newTeacher]="newTeacher"
-      (onChange)="changeStatusForNewStudent($event, newTeacher)"
+      (onChange)="changeStatusForNewTeacher($event, newTeacher)"
     >
     </app-new-teacher>
   </div>

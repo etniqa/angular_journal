@@ -537,10 +537,10 @@ export class DbService {
   }
 
   saveGroup(group: Group, studentsWhoInThisGroup: StudentChoosing[]): Observable<Student[]> {
-    // set group in certain students
+    // set subj in certain students
     return new Observable(subscriber => {
       setTimeout(() => {
-        this.students.filter(student => !student.group) // filter students without group
+        this.students.filter(student => !student.group) // filter students without subj
           .map(student => {
             if (studentsWhoInThisGroup.find(studentWhoInThisGroup => studentWhoInThisGroup.id === student.id)) {
               student.group = group;

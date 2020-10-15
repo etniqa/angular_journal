@@ -1,14 +1,24 @@
 <div *ngIf="isLoaded; else loadingBlock">
   <div class="form-control">
-    <input type="text" placeholder="name..." [(ngModel)]="strForSearchGroupName">
-    <!--  group have to be selectControl-->
+<!--    <input type="text" placeholder="name..." [(ngModel)]="strForSearchSubjName">-->
+    <select matNativeControl required
+      (change)="this.strForSearchGroupName = $event.target.value"
+    >
+      <option value="">show all</option>
+      <option *ngFor="let subj of groups"
+              [value]="subj.name"
+      >
+        {{subj.name}}
+      </option>
+    </select>
+    <!--  TODO: have to be selectControl to filter students-->
   </div>
 
   <table *ngIf="isLoaded; else loadingBlock">
     <thead>
     <tr>
       <th>#</th>
-      <th>Name</th>
+      <th>Number</th>
       <th>Actions</th>
     </tr>
     </thead>
@@ -20,7 +30,6 @@
       [ind]="ind + 1"
       (deleteGroup)="deleteGroup(group)"
     ></app-group>
-    <!--  delete btn-->
     </tbody>
   </table>
 </div>

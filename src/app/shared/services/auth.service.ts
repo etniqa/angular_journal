@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {DbService} from './db.service';
 import {Admin, NewStudent, NewTeacher, Teacher, User} from '../interfaces';
 import {Observable} from 'rxjs';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +38,7 @@ export class AuthService {
 
   private setAllAfterSuccessLogin(type: string, user: User) {
     this._activeUser = user;
+
     return this._typeOfUser = type;
   }
 
@@ -49,51 +50,44 @@ export class AuthService {
 
   login(user: User): Observable<string> {
     this.isLoaded = false;
-    let counter = 0;
     return new Observable<string>(subscriber => {
       this.dbService.getAllAdmins().subscribe(responseAdmins => {
-        responseAdmins.forEach(admin => {
+        console.log('got response from getAllAdmins', responseAdmins);
+        for (const admin of responseAdmins) {
           if (user.email.valueOf() === admin.email.valueOf()) {
             if (user.password.valueOf() === admin.password.valueOf()) {
-              counter = null;  // can be without thi
               subscriber.next(this.setAllAfterSuccessLogin('admin', admin));
             } else {
               subscriber.error('wrong password');
             }
+            return;
           }
-        });
-        if (++counter === 3) {  // user isn`t admin and not anyone
-          subscriber.error('There is no user');
         }
       });
       this.dbService.getAllTeachers().subscribe(responseTeachers => {
-        responseTeachers.forEach(teacher => {
+        console.log('got response from getAllTeachers', responseTeachers);
+        for (const teacher of responseTeachers) {
           if (user.email === teacher.email) {
             if (user.password === teacher.password) {
-              counter = null;
               subscriber.next(this.setAllAfterSuccessLogin('teacher', teacher));
             } else {
               subscriber.error('wrong password');
             }
+            return;
           }
-        });
-        if (++counter === 3) {  // user isn`t teacher and not anyone
-          subscriber.error('There is no user');
         }
       });
       this.dbService.getAllStudents().subscribe(responseStudents => {
-        responseStudents.forEach(student => {
+        console.log('got response from getAllStudents', responseStudents);
+        for (const student of responseStudents) {
           if (user.email === student.email) {
             if (user.password === student.password) {
-              counter = null;
               subscriber.next(this.setAllAfterSuccessLogin('student', student));
             } else {
               subscriber.error('wrong password');
             }
+            return;
           }
-        });
-        if (++counter === 3) {  // user isn`t student and not anyone
-          subscriber.error('There is no user');
         }
       });
     });

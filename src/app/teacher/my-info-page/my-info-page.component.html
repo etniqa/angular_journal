@@ -3,13 +3,8 @@
   [formGroup]="form"
   (ngSubmit)="submit()"
 >
-  <!--  <div class="alert alert-info" *ngIf="this.messageFromGuard">{{this.messageFromGuard}}</div>-->
 
-  <!--  <div class="alert alert-danger" *ngIf="this.auth.error$ | async as error">-->
-  <!--    {{error}}-->
-  <!--  </div>-->
-
-  <h2>You can edit!</h2>
+  <h2>Your profile</h2>
   <div class="form-control">
     <label for="surname">Surname:</label>
     <input id="surname" type="text" formControlName="surname">

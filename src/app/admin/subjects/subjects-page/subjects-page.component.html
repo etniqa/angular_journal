@@ -1,7 +1,16 @@
 <div *ngIf="isLoaded; else loadingBlock">
   <div class="form-control">
-    <input type="text" placeholder="name..." [(ngModel)]="strForSearchGroupName">
-    <!--  group have to be selectControl-->
+<!--    <input type="text" placeholder="name..." [(ngModel)]="strForSearchSubjName">-->
+    <select matNativeControl required
+            (change)="this.strForSearchSubjName = $event.target.value"
+    >
+      <option value="">show all</option>
+      <option *ngFor="let subj of subjects"
+              [value]="subj.name"
+      >
+        {{subj.name}}
+      </option>
+    </select>
   </div>
   <table *ngIf="isLoaded; else loadingBlock">
     <thead>
@@ -12,7 +21,7 @@
     </tr>
     </thead>
     <tbody
-      *ngFor="let subject of subjects | searchByNameSubject:strForSearchGroupName; let ind = index"
+      *ngFor="let subject of subjects | searchByNameSubject:strForSearchSubjName; let ind = index"
     >
     <app-subject
       [subject]="subject"

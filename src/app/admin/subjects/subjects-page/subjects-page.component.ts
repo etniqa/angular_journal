@@ -10,7 +10,7 @@ import {DbService} from "../../../shared/services/db.service";
 export class SubjectsPageComponent implements OnInit {
   isLoaded = false;
   subjects: Subject[];
-  strForSearchGroupName = '';
+  strForSearchSubjName = '';
 
   constructor(private dbService: DbService) {
     this.getAllSubjectsFromDb();

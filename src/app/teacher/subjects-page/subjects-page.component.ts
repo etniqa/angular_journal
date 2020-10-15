@@ -15,7 +15,7 @@ interface Food {
   styleUrls: ['./subjects-page.component.scss']
 })
 export class SubjectsPageComponent implements OnInit {
-  isLoadedSubjectsCanApply = false;
+  isLoaded = false;
   isLoadedOwnSubjects = false;
   form: FormGroup;
   subjectsCanApply: Subject[] = [];
@@ -26,7 +26,8 @@ export class SubjectsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoadedSubjectsCanApply = false;
+    // TODO: make it without two booleans
+    this.isLoaded = false;
     this.isLoadedOwnSubjects = false;
     this.form = new FormGroup({
         subjectCanApply: new FormControl('', [Validators.required])
@@ -35,7 +36,7 @@ export class SubjectsPageComponent implements OnInit {
     this.dbService.getSubjectsCanBeApplied(this.authService.activeUser).subscribe(
       responseSubjects => {
         this.subjectsCanApply = responseSubjects;
-        this.isLoadedSubjectsCanApply = true;
+        this.isLoaded = true;
       }
     );
     this.dbService.getOwnSubjects(this.authService.activeUser).subscribe(
@@ -47,12 +48,12 @@ export class SubjectsPageComponent implements OnInit {
   }
 
   applyToNewSubject() {
-    this.isLoadedSubjectsCanApply = false;
+    this.isLoaded = false;
     console.log('apply to new subjectCanApply', this.form.get('subjectCanApply').value);
     this.dbService.applyNewSubject(this.authService.activeUser, JSON.parse(this.form.get('subjectCanApply').value))
       .subscribe(responseSubjectsCanApply => {
         this.subjectsCanApply = responseSubjectsCanApply;
-        this.isLoadedSubjectsCanApply = true;
+        this.isLoaded = true;
     });
   }
 

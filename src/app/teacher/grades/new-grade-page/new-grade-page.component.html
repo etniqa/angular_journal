@@ -1,8 +1,11 @@
 <div *ngIf="isLoaded; else loadingBlock">
   <h3 class="text-dark">
-    <p>Student: {{chosenStudent?.surname}} {{chosenStudent?.name}}</p>
-    <p>Subject: {{chosenSubject?.name}}</p>
-    <p>Grade: {{this.form.get('grade')?.value}}</p>
+    <i *ngIf="!chosenStudent else studentWasChosen">Please, choose student</i>
+    <ng-template #studentWasChosen>
+      <p>{{"Student: " + chosenStudent.surname + " " + chosenStudent.name}}</p>
+      <p>Subject: {{chosenSubject?.name}}</p>
+      <p>Grade: {{this.form.get('grade')?.value}}</p>
+    </ng-template>
   </h3>
 
   <form
@@ -10,7 +13,10 @@
     [formGroup]="form"
     (ngSubmit)="addNewGrade()"
   >
-    <div class="form-control left-content">
+    <div
+      class="form-control left-content"
+      *ngIf="chosenStudent"
+    >
       <select matNativeControl required formControlName="grade">
         <option *ngFor="let grade of grades"
                 [value]="grade.valueOf()">
@@ -25,8 +31,8 @@
           {{subject.name}}
         </option>
       </select>
-
     </div>
+
     <div class="right-content">
       <i class="text-center">Just click to choose</i>
       <table>

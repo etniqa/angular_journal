@@ -25,7 +25,7 @@ export class NewTeachersPageComponent implements OnInit {
     });
   }
 
-  changeStatusForNewStudent(value: string, student: NewTeacher) {
+  changeStatusForNewTeacher(value: string, student: NewTeacher) {
     student.wasApplied = value === 'apply' ? 'true' : value === 'reject' ? 'false' : 'none';
   }
 

@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "lab-project-angular"
+    }
+  },
+  "defaultProject": "lab-project-angular",
+  "cli": {
+    "analytics": false
+  }
 }
